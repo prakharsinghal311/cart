@@ -1,23 +1,48 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { itemsActions } from "./store/items";
+import { Cart } from "./Cart";
 
 function App() {
+  const dispatch = useDispatch();
+  const [cart, setCart] = useState(false);
+
+  const cartHandler = () => {
+    setCart(true);
+  };
+
+  const addShirtHandler = () => {
+    dispatch(itemsActions.addShirts());
+  };
+
+  const addPantHandler = () => {
+    dispatch(itemsActions.addPants());
+  };
+
+  const removeShirtHandler = () => {
+    dispatch(itemsActions.removeShirts());
+  };
+
+  const removePantHandler = () => {
+    dispatch(itemsActions.removePants());
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <div>
+        shirt <button onClick={addShirtHandler}>add</button>
+        <button onClick={removeShirtHandler}>remove</button>
+      </div>
+      <div>
+        Pant <button onClick={addPantHandler}>add</button>
+        <button onClick={removePantHandler}>remove</button>
+      </div>
+      {/* <div>
+        Coat <button onClick={addCoatHandler}>add</button>
+        <button onClick={removeCoatHandler}>remove</button>
+      </div> */}
+      <button onClick={cartHandler}>Cart</button>
+      <div>{cart && <Cart />}</div>
     </div>
   );
 }
